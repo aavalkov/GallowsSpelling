@@ -1,4 +1,4 @@
-To-Do List (ruby style)
+GALLOWS SPELLING
 =========================
 
 by [Anna Valkov] (https://github.com/aavalkov) and [Blake Mason] (https://github.com/blnkt)
