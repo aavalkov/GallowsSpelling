@@ -5,10 +5,6 @@ class SecretWord
     @wrong_letters = []
   end
 
-  # def guess(letter)
-  #   @letter = letter
-  # end
-
   def right_letters
     @right_letters
   end
@@ -16,13 +12,13 @@ class SecretWord
   def wrong_letters
     @wrong_letters
   end
-  # def clear_guesses
-  #   @right_letters = []
-  #   @wrong_letters = []
-  # end
 
   def already_guessed(letter)
     @wrong_letters.include?(letter) || @right_letters.include?(letter)
+  end
+
+  def unauthorized_secret(word)
+    word.match(/[a-zA-Z]/) == nil || word.match(/\s/) == " ".match(/\s/)
   end
 
   def unauthorized_guess(letter)
@@ -48,8 +44,4 @@ class SecretWord
       @wrong_letters << @letter
     end
   end
-end
-
-if "hello".length < 1
-  "bing!"
 end

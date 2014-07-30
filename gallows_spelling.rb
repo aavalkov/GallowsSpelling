@@ -2,17 +2,18 @@ require "./lib/SecretWord"
 # require "./lib/body"
 
 def main_menu
-  puts "\e[H\e[2J"
+  clear_screen
   puts "Enter a Secret Word to play Gallows Spelling\nPress '#' to exit the program at any time."
   user_secret = gets.chomp.upcase
+  secret_word = SecretWord.new(user_secret)
+  spaces = ["_"] * user_secret.length
+
   if user_secret == "#" #escape route
     exit
-  elsif user_secret.match(/[a-zA-Z]/) == nil
+  elsif secret_word.unauthorized_secret(user_secret)
     main_menu
   end
-  secret_word = SecretWord.new(user_secret)
-  puts "\e[H\e[2J"
-  spaces = ["_"] * user_secret.length
+  clear_screen
   puts spaces.join(" ")
 
   loop do
@@ -26,13 +27,10 @@ def main_menu
       puts "Only one letter please."
     else
     secret_word.letter_checker(user_guess)
-      puts "\e[H\e[2J"
-      secret_word.letter_position.each do |index|
-        spaces[index] = user_guess
-      end
+      clear_screen
+      secret_word.letter_position.each {|index| spaces[index] = user_guess}
       puts spaces.join(" ")
-      puts "\nWrong guesses: #{secret_word.wrong_letters.join(", ")}"
-
+      puts "\nWrong guesses: #{secret_word.wrong_letters.join(", ")}" if secret_word.wrong_letters.length >= 1
       if secret_word.win_game
         puts "You guessed the Secret Word!\nPress any key to play again."
         main_menu if gets
@@ -42,6 +40,10 @@ def main_menu
       end
     end
   end
+end
+
+def clear_screen
+  puts "\e[H\e[2J"
 end
 
 main_menu
