@@ -1,14 +1,13 @@
 class SecretWord
-
   def initialize(word)
     @secret_word = word
     @right_letters = []
     @wrong_letters = []
   end
 
-  def guess(letter)
-    @letter = letter
-  end
+  # def guess(letter)
+  #   @letter = letter
+  # end
 
   def right_letters
     @right_letters
@@ -17,21 +16,40 @@ class SecretWord
   def wrong_letters
     @wrong_letters
   end
+  # def clear_guesses
+  #   @right_letters = []
+  #   @wrong_letters = []
+  # end
 
-  def clear_guesses
-    @right_letters = []
-    @wrong_letters = []
+  def already_guessed(letter)
+    @wrong_letters.include?(letter) || @right_letters.include?(letter)
+  end
+
+  def unauthorized_guess(letter)
+    letter.length > 1 || letter.match(/[a-zA-Z]/) == nil
+  end
+
+  def win_game
+    @secret_word.split("").uniq.sort == @right_letters.sort
+  end
+  def lose_game
+    @wrong_letters.length >= 7
   end
 
   def letter_position
     @letter_position = @secret_word.split("").each_index.select{|i| @secret_word.split("")[i] == @letter}
   end
 
-  def letter_checker
+  def letter_checker(letter)
+    @letter = letter
     if @secret_word.match(@letter) != nil
       @right_letters << @letter
     else
       @wrong_letters << @letter
     end
   end
+end
+
+if "hello".length < 1
+  "bing!"
 end
