@@ -10,22 +10,25 @@ describe SecretWord do
     new_word = SecretWord.new("giraffe")
     expect(new_word).to be_an_instance_of SecretWord
   end
+
+  it "returns the position of correct letters in secret word" do
+    new_word = SecretWord.new("giraffe")
+    new_word.guess("f")
+    new_word.letter_position
+    expect(new_word.letter_position).to eq([4, 5])
+  end
+
   it "checks the guessed letter against the secret word" do
     new_word = SecretWord.new("giraffe")
     new_word.guess("f")
     new_word.letter_checker
     expect(new_word.right_letters).to eq(["f"])
   end
+
+  it "checks the guessed letter against the secret word" do
+    new_word = SecretWord.new("giraffe")
+    new_word.guess("o")
+    new_word.letter_checker
+    expect(new_word.wrong_letters).to eq(["o"])
+  end
 end
-
-# describe Guess do
-#   before do
-#     clear_guesses
-#   end
-
-#   it 'initialize with a letter' do
-#     new_guess = Guess.new ("a")
-#     another_guess = Guess.new("b")
-#     expect(new_guess). to be_an_instance_of Guess
-#     expect(Guess.guessed_letters).to eq ["a", "b"]
-#   end

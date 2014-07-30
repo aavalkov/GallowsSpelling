@@ -23,16 +23,15 @@ class SecretWord
     @wrong_letters = []
   end
 
+  def letter_position
+    @letter_position = @secret_word.split("").each_index.select{|i| @secret_word.split("")[i] == @letter}
+  end
+
   def letter_checker
-    @correct_guess = @secret_word.split("").each_index.select{|i| @secret_word.split("")[i] == @letter}
-    if @correct_guess.length > 0
+    if @secret_word.match(@letter) != nil
       @right_letters << @letter
     else
       @wrong_letters << @letter
     end
-  end
-
-  def correct_guess
-    @correct_guess
   end
 end
